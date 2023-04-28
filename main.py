@@ -138,7 +138,8 @@ def bot_message(message):
             board1 = types.KeyboardButton('Себастьян')
             board2 = types.KeyboardButton('Петр')
             board3 = types.KeyboardButton('Маркуля Петухов')
-            markup.add(board1, board2, board3)
+            board4 = types.KeyboardButton('Маркуля 122')
+            markup.add(board1, board2, board3, board4)
             bot.send_message(message.chat.id, 'Выбирите мастера', reply_markup=markup)
             bot.register_next_step_handler(message, name_master)
 
@@ -154,10 +155,13 @@ def get_data1(message):
     global data1
     data1 = message.text
     result = select_Name(master, data1, '0')
-    bot.send_message(message.chat.id, f'Выбирите и напишите время')
-    for i in result:
-        bot.send_message(message.chat.id, f'{i}')
-    bot.register_next_step_handler(message, get_updata1)
+    if result == []:
+        bot.send_message(message.chat.id, f'На выбранную дату нет свободного времени')
+    else:
+        bot.send_message(message.chat.id, f'Выбирите и напишите время')
+        for i in result:
+            bot.send_message(message.chat.id, f'{i}')
+        bot.register_next_step_handler(message, get_updata1)
 
 
 def get_updata1(message):
@@ -174,7 +178,9 @@ def get_name_person1(message):
     global master
     name_person1 = message.text
     update_person(master, data1, time1, name_person1)
-    bot.send_message(message.chat.id, f'Ваша запись к мастеру {master}, {data1} в {time1} успешно произведена, хорошего вам дня!')
+    bot.send_message(
+        message.chat.id, f'Ваша запись к мастеру {master}, {data1} в {time1} успешно произведена, хорошего вам дня!'
+    )
 
 
 if __name__ == "__main__":
