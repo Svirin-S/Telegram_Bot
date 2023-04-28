@@ -1,6 +1,11 @@
 import telebot
 from telebot import types
-from tatu_db import create_table
+from postgres_db import create_table, select_Name, update_person
+
+data1 = ''
+time1 = ''
+name_person1 = ''
+master = ''
 
 
 TOKEN = '6074203197:AAGh4YuAoXnH5iqTSLzGJHV9quOuvOFPQUc'
@@ -16,7 +21,9 @@ def start(message):
         client = types.KeyboardButton('Клиентам')
         master = types.KeyboardButton('Мастерам')
         create_table = types.KeyboardButton('Создать таблицу')
-        markup.add(client, master, create_table)
+        insert = types.KeyboardButton('Добавить мастера')
+        select = types.KeyboardButton('Записаться')
+        markup.add(client, master, create_table, insert, select)
     else:
         client = types.KeyboardButton('Клиентам')
         master = types.KeyboardButton('Мастерам')
@@ -117,10 +124,57 @@ def bot_message(message):
             markup.add(client, master)
             bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ чат-бот😇', reply_markup=markup)
 
-        elif message.text == 'Создать таблицу':
+        # elif message.text == 'Создать таблицу':
+        #     if id == 995091801:
+        #         create_table()
+        #         bot.send_message(message.chat.id, 'Таблицы созданы мой господин')
+
+        elif message.text == 'Добавить мастера':
             if id == 995091801:
-                create_table()
-                bot.send_message(message.chat.id, 'Таблицы созданы мой господин')
+                pass
+
+        elif message.text == 'Записаться':
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+            board1 = types.KeyboardButton('Себастьян')
+            board2 = types.KeyboardButton('Петр')
+            board3 = types.KeyboardButton('Маркуля Петухов')
+            markup.add(board1, board2, board3)
+            bot.send_message(message.chat.id, 'Выбирите мастера', reply_markup=markup)
+            bot.register_next_step_handler(message, name_master)
+
+
+def name_master(message):
+    global master
+    master = message.text
+    bot.send_message(message.chat.id, 'Выбирите и напишите дату например 21.01.01')
+    bot.register_next_step_handler(message, get_data1)
+
+
+def get_data1(message):
+    global data1
+    data1 = message.text
+    result = select_Name(master, data1, '0')
+    bot.send_message(message.chat.id, f'Выбирите и напишите время')
+    for i in result:
+        bot.send_message(message.chat.id, f'{i}')
+    bot.register_next_step_handler(message, get_updata1)
+
+
+def get_updata1(message):
+    global time1
+    time1 = message.text
+    bot.send_message(message.chat.id, f'Введите свое имя')
+    bot.register_next_step_handler(message, get_name_person1)
+
+
+def get_name_person1(message):
+    global name_person1
+    global data1
+    global time1
+    global master
+    name_person1 = message.text
+    update_person(master, data1, time1, name_person1)
+    bot.send_message(message.chat.id, f'Ваша запись к мастеру {master}, {data1} в {time1} успешно произведена, хорошего вам дня!')
 
 
 if __name__ == "__main__":
