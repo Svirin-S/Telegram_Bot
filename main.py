@@ -74,7 +74,15 @@ def bot_message(message):
             bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ чат-бот😇', reply_markup=markup)
 
         elif message.text == 'Студия':
-            bot.send_message(message.chat.id, 'Тут будет описание студии и все такое')
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            list_foto = ['Фото студии/IMG_6194.JPG', 'Фото студии/IMG_6295.JPG', 'Фото студии/IMG_6194.JPG']
+            bot.send_message(message.chat.id, 'Посмотрим фоточки')
+            for foto in list_foto:
+                p = open(foto, "rb")
+                bot.send_photo(message.chat.id, p)
+            board1 = types.KeyboardButton('Назад')
+            markup.add(board1)
+            bot.send_message(message.chat.id, 'Вернуться назад', reply_markup=markup)
 
         elif message.text == 'Аренда':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
