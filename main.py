@@ -1,11 +1,16 @@
 import telebot
 from telebot import types
-from postgres_db import create_table, select_Name, update_person, select_Name1
+from postgres_db import select_Name, update_person, select_Name1, insert_master, delete
 
 data1 = ''
 time1 = ''
 name_person1 = ''
 master = ''
+create_master2 = ''
+month = ''
+person_number = ''
+brief_description = ''
+master_del = ''
 
 
 TOKEN = '6074203197:AAGh4YuAoXnH5iqTSLzGJHV9quOuvOFPQUc'
@@ -20,10 +25,10 @@ def start(message):
     if id == 995091801:
         client = types.KeyboardButton('Клиентам')
         master = types.KeyboardButton('Мастерам')
-        create_table = types.KeyboardButton('Создать таблицу')
         insert = types.KeyboardButton('Добавить мастера')
+        delete_master = types.KeyboardButton('Удалить мастера')
         select = types.KeyboardButton('Записаться')
-        markup.add(client, master, create_table, insert, select)
+        markup.add(client, master, insert, select, delete_master)
     else:
         client = types.KeyboardButton('Клиентам')
         master = types.KeyboardButton('Мастерам')
@@ -44,6 +49,13 @@ def bot_message(message):
             markup.add(board1, board2, board3, board4)
             bot.send_message(message.chat.id, 'Выбирите нужный пункт', reply_markup=markup)
 
+        elif message.text == 'Удалить мастера':
+            if id == 995091801:
+                bot.send_message(message.chat.id, 'Введите имя')
+                bot.register_next_step_handler(message, delete_master1)
+            else:
+                bot.send_message(message.chat.id, 'Данная команда вам не доступна')
+
         elif message.text == 'Назад':
             user_name = message.from_user.first_name
             id = message.from_user.id
@@ -51,10 +63,10 @@ def bot_message(message):
             if id == 995091801:
                 client = types.KeyboardButton('Клиентам')
                 master = types.KeyboardButton('Мастерам')
-                create_table = types.KeyboardButton('Создать таблицу')
                 insert = types.KeyboardButton('Добавить мастера')
+                delete_master = types.KeyboardButton('Удалить мастера')
                 select = types.KeyboardButton('Записаться')
-                markup.add(client, master, create_table, insert, select)
+                markup.add(client, master, insert, select, delete_master)
             else:
                 client = types.KeyboardButton('Клиентам')
                 master = types.KeyboardButton('Мастерам')
@@ -125,14 +137,12 @@ def bot_message(message):
             markup.add(client, master)
             bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ чат-бот😇', reply_markup=markup)
 
-        # elif message.text == 'Создать таблицу':
-        #     if id == 995091801:
-        #         create_table()
-        #         bot.send_message(message.chat.id, 'Таблицы созданы мой господин')
-
         elif message.text == 'Добавить мастера':
             if id == 995091801:
-                pass
+                bot.send_message(message.chat.id, 'Введите имя мастера')
+                bot.register_next_step_handler(message, create_master1)
+            else:
+                bot.send_message(message.chat.id, 'У вас нет доступа к данному разделу')
 
         elif message.text == 'Записаться':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
@@ -298,12 +308,13 @@ def bot_message(message):
             board2 = types.KeyboardButton('Назад')
             markup.add(board1, board2)
             bot.send_message(message.chat.id, 'Ну что, запишемся😜)', reply_markup=markup)
-
+        else:
+            bot.send_message(message.chat.id, f'Вы ввели несуществующую команду')
 
 def name_master(message):
     global master
     master = message.text
-    bot.send_message(message.chat.id, 'Выбирите и напишите дату например 21.01.01')
+    bot.send_message(message.chat.id, 'Выбирите и напишите дату например 1.01.01')
     bot.register_next_step_handler(message, get_data1)
 
 
@@ -349,19 +360,92 @@ def get_updata1(message):
     global time1
     time1 = message.text
     bot.send_message(message.chat.id, f'Введите свое имя')
-    bot.register_next_step_handler(message, get_name_person1)
+    bot.register_next_step_handler(message, get_name_person)
 
 
-def get_name_person1(message):
+def get_name_person(message):
+    global name_person1
+    name_person1 = message.text
+    bot.send_message(message.chat.id, f'Введите свой номер телефона')
+    bot.register_next_step_handler(message, get_number)
+
+
+def get_number(message):
+    global person_number
+    person_number = message.text
+    bot.send_message(message.chat.id, f'Введите краткое описание тату (размер, место, референсы)')
+    bot.register_next_step_handler(message, get_brief_description)
+
+
+def get_brief_description(message):
     global name_person1
     global data1
     global time1
     global master
-    name_person1 = message.text
-    update_person(master, data1, time1, name_person1)
+    global person_number
+    global brief_description
+    brief_description = message.text
+    update_person(master, data1, time1, name_person1, person_number, brief_description)
     bot.send_message(
         message.chat.id, f'Ваша запись к мастеру {master}, {data1} в {time1} успешно произведена, хорошего вам дня!'
     )
+
+
+def create_master1(message):
+    global create_master2
+    create_master2 = message.text
+    bot.send_message(message.chat.id, f'Выбирите месяц')
+    bot.register_next_step_handler(message, get_month)
+
+
+def get_month(message):
+    global create_master2
+    global month
+    month = message.text
+    data_may = ['1.05.23', '2.05.23', '3.05.23', '4.05.23', '5.05.23', '6.05.23', '7.05.23', '8.05.23', '9.05.23',
+            '10.05.23', '11.05.23', '12.05.23', '13.05.23', '14.05.23', '15.05.23', '16.05.23', '17.05.23', '18.05.23',
+                '19.05.23', '20.05.23', '21.05.23', '22.05.23', '23.05.23', '24.05.23', '25.05.23', '26.05.23',
+                '27.05.23', '28.05.23', '29.05.23', '30.05.23', '31.05.23']
+
+    data_iyn = ['1.05.23', '2.05.23', '3.05.23', '4.05.23', '5.05.23', '6.05.23', '7.05.23', '8.05.23', '9.05.23',
+                '10.05.23', '11.05.23', '12.05.23', '13.05.23', '14.05.23', '15.05.23', '16.05.23', '17', '18', '19',
+                '20',
+                '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+
+    data_iyl = ['1.05.23', '2.05.23', '3.05.23', '4.05.23', '5.05.23', '6.05.23', '7.05.23', '8.05.23', '9.05.23',
+                '10.05.23', '11.05.23', '12.05.23', '13.05.23', '14.05.23', '15.05.23', '16.05.23', '17', '18', '19',
+                '20',
+                '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+
+    time = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
+
+    if month == 'Май':
+        for a in data_may:
+            for b in time:
+                insert_master(create_master2, a, b)
+        bot.send_message(message.chat.id, f'Мастер добавлен')
+
+    elif month == 'Июнь':
+        for a in data_iyn:
+            for b in time:
+                insert_master(create_master2, a, b)
+        bot.send_message(message.chat.id, f'Мастер добавлен')
+
+    elif month == 'Июль':
+        for a in data_iyl:
+            for b in time:
+                insert_master(create_master2, a, b)
+        bot.send_message(message.chat.id, f'Мастер добавлен')
+
+    else:
+        bot.send_message(message.chat.id, f'Вы ввели не существующий месяц')
+
+
+def delete_master1(message):
+    global master_del
+    master_del = message.text
+    delete(master_del)
+    bot.send_message(message.chat.id, f'мастер удален')
 
 
 if __name__ == "__main__":
