@@ -52,6 +52,7 @@ def insert(name, number_, data, time, name_person):
         """, (name, number_, data, time, name_person))
     conn.commit()
 
+# insert('Маркуля 555', 'dsdsfsddf', '21.01.01', '10:00', '0')
 
 def delete(name):
     cur.execute("""
@@ -60,7 +61,19 @@ def delete(name):
     conn.commit()
 
 
+def select_Name1(name, name_person, data):
+    cur.execute("""
+    SELECT data FROM Masters
+    WHERE name=%s and name_person=%s and data>%s
+    """, (name, name_person, data,))
+    list_ = []
+    for i in cur.fetchall():
+        for a in i:
+            list_.append(a)
+    return set(list_)
 
+# for a in select_Name1('Маркуля 555', '0', '21.01.01'):
+#     print(a)
 
 
 
