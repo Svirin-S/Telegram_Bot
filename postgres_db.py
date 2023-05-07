@@ -59,7 +59,7 @@ def select_Name1(name, name_person, data):
     for i in cur.fetchall():
         for a in i:
             list_.append(a)
-    return set(list_)
+    return sorted(set(list_))
 
 
 def insert_master(name, data, time):
