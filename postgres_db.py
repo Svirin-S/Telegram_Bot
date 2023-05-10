@@ -1,7 +1,7 @@
 import psycopg2
 
 
-conn = psycopg2.connect(database='postgres', user='user', password='1111')
+conn = psycopg2.connect(database='db_postgresql', user='pguser', password='123456789', port='5432')
 cur = conn.cursor()
 
 
@@ -47,7 +47,7 @@ def delete(name):
     """, (name,))
     conn.commit()
 
-# delete('Петр')
+# delete('Роман')
 
 
 def select_Name1(name, name_person, data):
@@ -71,6 +71,20 @@ def insert_master(name, data, time):
 
 # insert_master('Петр', '21.01.01', '10:00')
 
+
+def select_master(name, data, name_person):
+    cur.execute("""
+    SELECT name, time, name_person, person_number, brief_description FROM Masters
+    WHERE name=%s and data=%s and name_person!=%s
+    """, (name, data, name_person))
+    list_ = []
+    a = cur.fetchall()
+    return a
+
+
+for a in select_master('Валерия', '04.05.23', '0'):
+    print(a)
+# print(select_master('Валерия', '05.05.23', '0'))
 
 
 
