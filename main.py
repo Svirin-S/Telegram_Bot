@@ -1,6 +1,6 @@
 import telebot
 from telebot import types
-from sqlite_db import select_Name, update_person, select_Name1, insert_master, delete
+from sqlite_db import select_Name, update_person, select_Name1, insert_master, delete, select_master
 
 data1 = ''
 time1 = ''
@@ -11,8 +11,11 @@ month = ''
 person_number = ''
 brief_description = ''
 master_del = ''
+select_master_ = ''
+select_master_data = ''
 
 
+# TOKEN = '6225249184:AAEwLLi6VgiPCRCEZLWTwQN_vK66lrrO-eE' #Тест бот
 TOKEN = '6074203197:AAGh4YuAoXnH5iqTSLzGJHV9quOuvOFPQUc'
 bot = telebot.TeleBot(token=TOKEN)
 
@@ -25,10 +28,17 @@ def start(message):
     if id == 995091801:
         client = types.KeyboardButton('Клиентам')
         master = types.KeyboardButton('Мастерам')
+        board1 = types.KeyboardButton('Посмотреть запись')
         insert = types.KeyboardButton('Добавить мастера')
         delete_master = types.KeyboardButton('Удалить мастера')
         select = types.KeyboardButton('Записаться')
-        markup.add(client, master, insert, select, delete_master)
+        markup.add(client, master, insert, select, delete_master, board1)
+    elif id == 209289541 or id == 490294996:
+        client = types.KeyboardButton('Клиентам')
+        master = types.KeyboardButton('Мастерам')
+        board1 = types.KeyboardButton('Посмотреть запись')
+        delete_master = types.KeyboardButton('Удалить мастера')
+        markup.add(client, master, delete_master, board1)        
     else:
         client = types.KeyboardButton('Клиентам')
         master = types.KeyboardButton('Мастерам')
@@ -64,9 +74,10 @@ def bot_message(message):
                 client = types.KeyboardButton('Клиентам')
                 master = types.KeyboardButton('Мастерам')
                 insert = types.KeyboardButton('Добавить мастера')
+                board1 = types.KeyboardButton('Посмотреть запись')
                 delete_master = types.KeyboardButton('Удалить мастера')
                 select = types.KeyboardButton('Записаться')
-                markup.add(client, master, insert, select, delete_master)
+                markup.add(client, master, insert, select, delete_master, board1)
             else:
                 client = types.KeyboardButton('Клиентам')
                 master = types.KeyboardButton('Мастерам')
@@ -495,6 +506,10 @@ def bot_message(message):
                        board12)
             bot.send_message(message.chat.id, 'На кого еще посмотрим? Или запишемся?', reply_markup=markup)
 
+        elif message.text == 'Посмотреть запись':
+            bot.send_message(message.chat.id, 'Введите мастера')
+            bot.register_next_step_handler(message, master_select2)
+
         elif 'Мастера':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
             board1 = types.KeyboardButton('На главную')
@@ -627,7 +642,7 @@ def get_month(message):
             for b in time:
                 insert_master(create_master2, a, b)
         bot.send_message(message.chat.id, f'Мастер добавлен')
-
+        
     else:
         bot.send_message(message.chat.id, f'Вы ввели не существующий месяц')
 
@@ -637,6 +652,34 @@ def delete_master1(message):
     master_del = message.text
     delete(master_del)
     bot.send_message(message.chat.id, f'мастер удален')
+
+
+def master_select(message):
+    bot.send_message(message.chat.id, f'введите мастера')
+    bot.register_next_step_handler(message, master_select2)
+    
+    
+def master_select2(message):
+    global select_master_
+    select_master_ = message.text
+    bot.send_message(message.chat.id, f'введите дату')
+    bot.register_next_step_handler(message, master_select3)
+    
+    
+def master_select3(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    global select_master_
+    global select_master_data
+    select_master_data = message.text
+    d = select_master(select_master_, select_master_data, '0')
+    for i in d:
+        list_ = []
+        for a in i:
+            list_.append(a)
+        bot.send_message(message.chat.id, f'{list_[0]} {list_[1]} {list_[2]} {list_[3]} {list_[4]}')    
+    board1 = types.KeyboardButton('На главную')
+    markup.add(board1)
+    bot.send_message(message.chat.id, 'Выбирите команду', reply_markup=markup)        
 
 
 if __name__ == "__main__":

@@ -40,6 +40,7 @@ def update_person(name, data, time, name_person, person_number, brief_descriptio
     cur.execute(sql_update_query, (name_person, person_number, brief_description, name, data, time,))
     conn.commit()
 
+# update_person('Анастасия', '07.05.23', '9:00', 'tttt', '453453534', 'fdgdfdgf')
 
 def delete(name):
     cur.execute("""
@@ -69,7 +70,7 @@ def insert_master(name, data, time):
     """, (name, data, time))
     conn.commit()
 
-# insert_master('Петр', '21.01.01', '10:00')
+# insert_master('Анастасия', '05.05.01', '10:00')
 
 
 def select_master(name, data, name_person):
@@ -79,12 +80,23 @@ def select_master(name, data, name_person):
     """, (name, data, name_person))
     list_ = []
     a = cur.fetchall()
+    b = list_.append(a)
     return a
 
+# for i in select_master('Анастасия', '05.05.23', '0'):
+#     list_ = []
+#     for a in i:
+#         list_.append(a)
+#     print(f'{list_[0]} {list_[1]} {list_[2]} {list_[3]} {list_[4]}')
 
-# for a in select_master('Валерия', '04.05.23', '0'):
+def select_master2(name, data, name_person):
+    cur.execute("""
+    SELECT name, time, name_person, person_number, brief_description FROM Masters
+    WHERE name=? and data>=? and name_person!=?
+    """, (name, data, name_person))
+    list_ = []
+    a = cur.fetchall()
+    return a
+
+# for a in select_master('Анастасия', '05.05.23', '0'):
 #     print(a)
-# print(select_master('Валерия', '05.05.23', '0'))
-
-
-
