@@ -1,8 +1,7 @@
 version: '3.5'
 
 services:
-  postgres:
-    bot:
-      build: .
-      restart: always
+  bot:
+    build: .
+    restart: always
       
