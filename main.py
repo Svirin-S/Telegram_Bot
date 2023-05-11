@@ -1,6 +1,6 @@
 import telebot
 from telebot import types
-from postgres_db import select_Name, update_person, select_Name1, insert_master, delete
+from sqlite_db import select_Name, update_person, select_Name1, insert_master, delete
 
 data1 = ''
 time1 = ''
