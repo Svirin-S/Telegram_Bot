@@ -2,14 +2,14 @@ FROM python:3.9
 
 SHELL ["/bin/bash", "-c"]
 
+COPY requirements.txt requirements.txt
+
 RUN pip install --upgrade pip
 
 RUN apt update
 
-COPY . .
-
-WORKDIR /Telegram_Bot/
-
 RUN pip3 install -r requirements.txt
+
+COPY . .
 
 CMD ["python3", "main.py"]
