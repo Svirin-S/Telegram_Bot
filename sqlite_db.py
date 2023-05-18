@@ -89,14 +89,16 @@ def select_master(name, data, name_person):
 #         list_.append(a)
 #     print(f'{list_[0]} {list_[1]} {list_[2]} {list_[3]} {list_[4]}')
 
-def select_master2(name, data, name_person):
-    cur.execute("""
-    SELECT name, time, name_person, person_number, brief_description FROM Masters
-    WHERE name=? and data>=? and name_person!=?
-    """, (name, data, name_person))
-    list_ = []
-    a = cur.fetchall()
-    return a
+# def select_master2(name, data, name_person):
+#     cur.execute("""
+#     SELECT name, data, time, name_person, person_number, brief_description FROM Masters
+#     WHERE name=? and data>? and name_person!=?
+#     """, (name, data, name_person))
+#     list_ = []
+#     a = cur.fetchall()
+#     return a
 
 # for a in select_master('Анастасия', '05.05.23', '0'):
 #     print(a)
+    
+    
