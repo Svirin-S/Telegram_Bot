@@ -19,8 +19,8 @@ get_admin_question = ''
 get_admin_user = ''
 get_admin_number = ''
 
-TOKEN = '6225249184:AAEwLLi6VgiPCRCEZLWTwQN_vK66lrrO-eE' #Тест бот
-# TOKEN = '6074203197:AAGh4YuAoXnH5iqTSLzGJHV9quOuvOFPQUc'
+# TOKEN = '6225249184:AAEwLLi6VgiPCRCEZLWTwQN_vK66lrrO-eE' #Тест бот
+TOKEN = '6074203197:AAGh4YuAoXnH5iqTSLzGJHV9quOuvOFPQUc'
 bot = telebot.TeleBot(token=TOKEN)
 
 
@@ -562,7 +562,7 @@ def get_brief_description(message):
     bot.send_message(
         message.chat.id, f'Ну всё! Ты большой молодец, в ближайшее время с тобой свяжется живой человек и уточнит у тебя пару вопрос'
     )
-    bot.send_message(995091801, f'Запись, клиент {name_person1} дата {data1} время {time1} номер {person_number}\nописание тату - {brief_description}')
+    bot.send_message(209289541, f'Запись, клиент {name_person1} дата {data1} время {time1} номер {person_number}\nописание тату - {brief_description}')
 
 
 def create_master1(message):
@@ -656,7 +656,9 @@ def get_admin2(message):
     board1 = types.KeyboardButton('На главную')
     markup.add(board1)   
     bot.send_message(message.chat.id, 'В ближайшее время с вами свяжется администратор')
-    bot.send_message(995091801, f'Запись к администратору клиент {get_admin_user} номер {get_admin_number}\nвопрос : {get_admin_question}')
+    bot.send_message(209289541, f'Запись к администратору клиент {get_admin_user} номер {get_admin_number}\nвопрос : {get_admin_question}')
+
+
 if __name__ == "__main__":
     bot.polling(none_stop=True)
 
