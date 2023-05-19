@@ -47,7 +47,7 @@ def start(message):
         client = types.KeyboardButton('Клиентам')
         master = types.KeyboardButton('Мастерам')
         markup.add(client, master)
-    bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ бот-помощник тату-студии "Hokage Tattoo". Хочешь записаться на сеанс, жми "Клиентам". Если ты мастер и хочешь у нас порабоать, то жми "Мастерам"', reply_markup=markup)
+    bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ бот-помощник тату-студии "Hokage Tattoo". Хочешь записаться на сеанс, жми "Клиентам". Если ты мастер и хочешь у нас поработать, то жми "Мастерам"', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
@@ -65,7 +65,6 @@ def bot_message(message):
             bot.send_message(message.chat.id, 'Был у нас? Если нет, то жми кнопку "Студия". Там у нас пару фотографий твоего будущего рабочего пространства. Был? Тогда ещё лучше, сразу жми кнопку "Аренда". Ну а если ты, замечательный человек, хочешь обучиться искусству татуировки, то жмякай кнопку "Обучение"', reply_markup=markup)
 
         elif message.text == 'Удалить мастера':
-            # bot.send_message(786766230, 'good')
             if id == 995091801:
                 bot.send_message(message.chat.id, 'Введите имя')
                 bot.register_next_step_handler(message, delete_master1)
@@ -88,7 +87,7 @@ def bot_message(message):
                 client = types.KeyboardButton('Клиентам')
                 master = types.KeyboardButton('Мастерам')
                 markup.add(client, master)
-            bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ бот-помощник тату-студии "Hokage Tattoo". Хочешь записаться на сеанс, жми "Клиентам". Если ты мастер и хочешь у нас порабоать, то жми "Мастерам"', reply_markup=markup)
+            bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ бот-помощник тату-студии "Hokage Tattoo". Хочешь записаться на сеанс, жми "Клиентам". Если ты мастер и хочешь у нас поработать, то жми "Мастерам"', reply_markup=markup)
         elif message.text == 'Студия':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
             list_foto = ['Фото студии/IMG_6194.JPG', 'Фото студии/IMG_6295.JPG', 'Фото студии/IMG_6194.JPG']
@@ -177,7 +176,7 @@ def bot_message(message):
             client = types.KeyboardButton('Клиентам')
             master = types.KeyboardButton('Мастерам')
             markup.add(client, master)
-            bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ чат-бот😇', reply_markup=markup)
+            bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ бот-помощник тату-студии "Hokage Tattoo". Хочешь записаться на сеанс, жми "Клиентам". Если ты мастер и хочешь у нас поработать, то жми "Мастерам"', reply_markup=markup)
 
         elif message.text == 'Добавить мастера':
             if id == 995091801:
@@ -218,6 +217,7 @@ def bot_message(message):
             board5 = types.KeyboardButton('На главную')
             markup.add(board1, board2, board3, board4, board5, board44)
             bot.send_message(message.chat.id, 'На что еще посмотрим или запишемся)', reply_markup=markup)
+        
         elif message.text == 'Адрес + как добраться':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             p1 = open("Как добраться/E7BF2779-3D55-49FD-823D-F4ACE89D07C1.JPG", "rb")
@@ -262,23 +262,23 @@ def bot_message(message):
 
         elif message.text == 'Мастера':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-            board1 = types.KeyboardButton('кнопка "Анастасия"')
-            board2 = types.KeyboardButton('кнопка "Антон"')
-            board3 = types.KeyboardButton('кнопка "Артур"')
-            board4 = types.KeyboardButton('кнопка "Валерия"')
-            board5 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board6 = types.KeyboardButton('кнопка "Димон"')
-            board7 = types.KeyboardButton('кнопка "Ирина"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board1 = types.KeyboardButton('мастер Анастасия')
+            board2 = types.KeyboardButton('мастер Антон')
+            board3 = types.KeyboardButton('мастер Артур')
+            board4 = types.KeyboardButton('мастер Валерия')
+            board5 = types.KeyboardButton('мастер Виктория Пахина')
+            board6 = types.KeyboardButton('мастер Димон')
+            board7 = types.KeyboardButton('мастер Ирина')
+            board8 = types.KeyboardButton('мастер Кеша')
+            board9 = types.KeyboardButton('мастер Килди')
+            board10 = types.KeyboardButton('мастер Роман')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
             markup.add(board1, board2, board3, board4, board5, board6, board7, board8, board9, board10, board11, board12, board44)
             bot.send_message(message.chat.id, 'Выбери интересующего мастера. Потыкай всех, нас много', reply_markup=markup)
 
-        elif message.text == 'Фото Анастасия':
+        elif message.text == 'мастер Анастасия':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Anastas = ['Анастасия (мастер)/Работа1.jpg', 'Анастасия (мастер)/Работа2.jpg', 'Анастасия (мастер)/Работа3.jpg']
             bot.send_message(message.chat.id, 'Анастасия')
@@ -287,23 +287,14 @@ def bot_message(message):
             for photo_An in list_Anastas:
                 p = open(photo_An, "rb")
                 bot.send_photo(message.chat.id, p)
-            board2 = types.KeyboardButton('кнопка "Антон"')
-            board3 = types.KeyboardButton('кнопка "Артур"')
-            board4 = types.KeyboardButton('кнопка "Валерия"')
-            board5 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board6 = types.KeyboardButton('кнопка "Димон"')
-            board7 = types.KeyboardButton('кнопка "Ирина"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Антон"':
+        elif message.text == 'мастер Антон':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Anton = ['Антон Карибский (мастер)/Работа1.jpg', 'Антон Карибский (мастер)/Работа2.jpg',
                             'Антон Карибский (мастер)/Работа3.jpg']
@@ -313,44 +304,26 @@ def bot_message(message):
             for photo_Ant in list_Anton:
                 p3 = open(photo_Ant, "rb")
                 bot.send_photo(message.chat.id, p3)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Артур"')
-            board4 = types.KeyboardButton('кнопка "Валерия"')
-            board5 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board6 = types.KeyboardButton('кнопка "Димон"')
-            board7 = types.KeyboardButton('кнопка "Ирина"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Артур"':
+        elif message.text == 'мастер Артур':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             bot.send_message(message.chat.id, 'Артур')
             p3 = open("Артур (мастер)/Лицо.jpg", "rb")
             bot.send_photo(message.chat.id, p3)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Валерия"')
-            board5 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board6 = types.KeyboardButton('кнопка "Димон"')
-            board7 = types.KeyboardButton('кнопка "Ирина"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Валерия"':
+        elif message.text == 'мастер Валерия':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Valeria = ['Валерия (мастер)/Работа1.jpg', 'Валерия (мастер)/Работа2.jpg',
                           'Валерия (мастер)/Работа3.jpg']
@@ -360,23 +333,14 @@ def bot_message(message):
             for photo_Val in list_Valeria:
                 p5 = open(photo_Val, "rb")
                 bot.send_photo(message.chat.id, p5)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Артур"')
-            board5 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board6 = types.KeyboardButton('кнопка "Димон"')
-            board7 = types.KeyboardButton('кнопка "Ирина"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Виктория Пахина"':
+        elif message.text == 'мастер Виктория Пахина':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Victoria = ['Виктория Пахина (мастер)/Работа1.jpg', 'Виктория Пахина (мастер)/Работа2.jpg',
                             'Виктория Пахина (мастер)/Работа3.jpg',
@@ -388,23 +352,14 @@ def bot_message(message):
             for photo_Vic in list_Victoria:
                 p6 = open(photo_Vic, "rb")
                 bot.send_photo(message.chat.id, p6)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Артур"')
-            board5 = types.KeyboardButton('кнопка "Валерия"')
-            board6 = types.KeyboardButton('кнопка "Димон"')
-            board7 = types.KeyboardButton('кнопка "Ирина"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Димон"':
+        elif message.text == 'мастер Димон':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Dimon = ['Димон (мастер)/Работа1.jpg', 'Димон (мастер)/Работа2.jpg',
                              'Димон (мастер)/Работа3.jpg',
@@ -416,23 +371,14 @@ def bot_message(message):
             for photo_Dim in list_Dimon:
                 p8 = open(photo_Dim, "rb")
                 bot.send_photo(message.chat.id, p8)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Артур"')
-            board5 = types.KeyboardButton('кнопка "Валерия"')
-            board6 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board7 = types.KeyboardButton('кнопка "Ирина"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Ирина"':
+        elif message.text == 'мастер Ирина':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Irina = ['Ирина (мастер)/Работа1.jpg', 'Ирина (мастер)/Работа2.jpg',
                           'Ирина (мастер)/Работа3.jpg',
@@ -444,23 +390,14 @@ def bot_message(message):
             for photo_Irin in list_Irina:
                 p10 = open(photo_Irin, "rb")
                 bot.send_photo(message.chat.id, p10)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Артур"')
-            board5 = types.KeyboardButton('кнопка "Валерия"')
-            board6 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board7 = types.KeyboardButton('кнопка "Димон"')
-            board8 = types.KeyboardButton('кнопка "Кеша"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Кеша"':
+        elif message.text == 'мастер Кеша':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Kecha = ['Кеша (мастер)/Работа1.jpg', 'Кеша (мастер)/Работа2.jpg',
                             'Кеша (мастер)/Работа3.jpg']
@@ -470,23 +407,14 @@ def bot_message(message):
             for photo_Kech in list_Kecha:
                 p12 = open(photo_Kech, "rb")
                 bot.send_photo(message.chat.id, p12)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Артур"')
-            board5 = types.KeyboardButton('кнопка "Валерия"')
-            board6 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board7 = types.KeyboardButton('кнопка "Димон"')
-            board8 = types.KeyboardButton('кнопка "Ирина"')
-            board9 = types.KeyboardButton('кнопка "Килди"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Килди"':
+        elif message.text == 'мастер Килди':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Kildi = ['Килди (мастер)/Работа1.JPG', 'Килди (мастер)/Работа2.JPG',
                           'Килди (мастер)/Работа4.JPG', 'Килди (мастер)/Работа5.JPG']
@@ -494,23 +422,14 @@ def bot_message(message):
             for photo_Kild in list_Kildi:
                 p13 = open(photo_Kild, "rb")
                 bot.send_photo(message.chat.id, p13)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Артур"')
-            board5 = types.KeyboardButton('кнопка "Валерия"')
-            board6 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board7 = types.KeyboardButton('кнопка "Димон"')
-            board8 = types.KeyboardButton('кнопка "Ирина"')
-            board9 = types.KeyboardButton('кнопка "Кеша"')
-            board10 = types.KeyboardButton('кнопка "Роман"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
 
-        elif message.text == 'кнопка "Роман"':
+        elif message.text == 'мастер Роман':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             list_Roman = ['Роман (мастер)/IMG_3731.jpg', 'Роман (мастер)/IMG_5140.jpg',
                             'Роман (мастер)/IMG_5475.JPG']
@@ -520,21 +439,30 @@ def bot_message(message):
             for photo_Rom in list_Roman:
                 p15 = open(photo_Rom, "rb")
                 bot.send_photo(message.chat.id, p15)
-            board2 = types.KeyboardButton('кнопка "Анастасия"')
-            board3 = types.KeyboardButton('кнопка "Антон"')
-            board4 = types.KeyboardButton('кнопка "Артур"')
-            board5 = types.KeyboardButton('кнопка "Валерия"')
-            board6 = types.KeyboardButton('кнопка "Виктория Пахина"')
-            board7 = types.KeyboardButton('кнопка "Димон"')
-            board8 = types.KeyboardButton('кнопка "Ирина"')
-            board9 = types.KeyboardButton('кнопка "Кеша"')
-            board10 = types.KeyboardButton('кнопка "Килди"')
+            board10 = types.KeyboardButton('Посмотреть еще')
             board11 = types.KeyboardButton('Записаться')
             board44 = types.KeyboardButton('Связаться с администратором')
             board12 = types.KeyboardButton('На главную')
-            markup.add(board2, board3, board4, board5, board6, board7, board8, board9, board10, board11,
-                       board12, board44)
+            markup.add(board10, board11,board12, board44)
             bot.send_message(message.chat.id, 'Посмотришь еще или сразу записать тебя на сеанс?', reply_markup=markup)
+            
+        elif message.text == 'Посмотреть еще':
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+            board1 = types.KeyboardButton('мастер Анастасия')
+            board2 = types.KeyboardButton('мастер Антон')
+            board3 = types.KeyboardButton('мастер Артур')
+            board4 = types.KeyboardButton('мастер Валерия')
+            board5 = types.KeyboardButton('мастер Виктория Пахина')
+            board6 = types.KeyboardButton('мастер Димон')
+            board7 = types.KeyboardButton('мастер Ирина')
+            board8 = types.KeyboardButton('мастер Кеша')
+            board9 = types.KeyboardButton('мастер Килди')
+            board10 = types.KeyboardButton('мастер Роман')
+            board11 = types.KeyboardButton('Записаться')
+            board44 = types.KeyboardButton('Связаться с администратором')
+            board12 = types.KeyboardButton('На главную')
+            markup.add(board1, board2, board3, board4, board5, board6, board7, board8, board9, board10, board11, board12, board44)
+            bot.send_message(message.chat.id, 'Кого еще посмотришь?', reply_markup=markup)
 
         elif message.text == 'Посмотреть запись':
             bot.send_message(message.chat.id, 'Введите мастера')
@@ -578,6 +506,10 @@ def get_data1(message):
     else:
         bot.send_message(message.chat.id, f'Предпочтительное время?')
         for i in result:
+            # markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+            # board1 = types.KeyboardButton(i)
+            # markup.add(board1)
+            # bot.send_message(message.chat.id, "время", reply_markup=markup)
             bot.send_message(message.chat.id, f'{i}')
         bot.register_next_step_handler(message, get_updata1)
 
@@ -592,6 +524,7 @@ def get_data2(message):
     else:
         bot.send_message(message.chat.id, f'Предпочтительное время?')
         for i in result:
+            
             bot.send_message(message.chat.id, f'{i}')
         bot.register_next_step_handler(message, get_updata1)
 
