@@ -504,13 +504,11 @@ def get_data1(message):
         markup.add(board1)
         bot.send_message(message.chat.id, 'Выбирите дату из списка)', reply_markup=markup)
     else:
-        bot.send_message(message.chat.id, f'Предпочтительное время?')
-        for i in result:
-            # markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-            # board1 = types.KeyboardButton(i)
-            # markup.add(board1)
-            # bot.send_message(message.chat.id, "время", reply_markup=markup)
-            bot.send_message(message.chat.id, f'{i}')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+        for i, v in enumerate(result):
+            i = types.KeyboardButton(v)
+            markup.add(i)
+        bot.send_message(message.chat.id, "Предпочтительное время?", reply_markup=markup)
         bot.register_next_step_handler(message, get_updata1)
 
 
