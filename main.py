@@ -528,27 +528,43 @@ def get_data2(message):
 
 
 def get_updata1(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     global time1
     time1 = message.text
-    bot.send_message(message.chat.id, f'Как тебя зовут?')
+    board1 = types.KeyboardButton('На главную')
+    markup.add(board1)
+    bot.send_message(message.chat.id, 'Как тебя зовут?', reply_markup=markup)
     bot.register_next_step_handler(message, get_name_person)
 
 
 def get_name_person(message):
-    global name_person1
-    name_person1 = message.text
-    bot.send_message(message.chat.id, f'Номерочек свой тоже, пожалуйста, укажи ниже')
-    bot.register_next_step_handler(message, get_number)
+    if message.text == 'На главную':
+        bot.register_next_step_handler(message, start)
+    else:
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+        global name_person1
+        name_person1 = message.text
+        board1 = types.KeyboardButton('На главную')
+        markup.add(board1)
+        bot.send_message(message.chat.id, 'Номерочек свой тоже, пожалуйста, укажи ниже', reply_markup=markup)
+        bot.register_next_step_handler(message, get_number)
 
 
 def get_number(message):
-    global person_number
-    person_number = message.text
-    bot.send_message(message.chat.id, f'Опиши свою идеи в двух словах. Если знаешь примерные размеры, то тоже укажи их, мы будем рады')
-    bot.register_next_step_handler(message, get_brief_description)
+    if message.text == 'На главную':
+        bot.register_next_step_handler(message, start)
+    else:  
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)  
+        global person_number
+        person_number = message.text
+        board1 = types.KeyboardButton('На главную')
+        markup.add(board1)
+        bot.send_message(message.chat.id, 'Опиши свою идеи в двух словах. Если знаешь примерные размеры, то тоже укажи их, мы будем рады', reply_markup=markup)
+        bot.register_next_step_handler(message, get_brief_description)
 
 
 def get_brief_description(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2) 
     global name_person1
     global data1
     global time1
@@ -557,8 +573,10 @@ def get_brief_description(message):
     global brief_description
     brief_description = message.text
     update_person(master, data1, time1, name_person1, person_number, brief_description)
+    board1 = types.KeyboardButton('На главную')
+    markup.add(board1)
     bot.send_message(
-        message.chat.id, f'Ну всё! Ты большой молодец, в ближайшее время с тобой свяжется живой человек и уточнит у тебя пару вопрос'
+        message.chat.id, f'Ну всё! Ты большой молодец, в ближайшее время с тобой свяжется живой человек и уточнит у тебя пару вопрос', reply_markup=markup
     )
     bot.send_message(209289541, f'Запись, клиент {name_person1} дата {data1} время {time1} номер {person_number}\nописание тату - {brief_description}')
 
