@@ -6,21 +6,33 @@ cur = conn.cursor()
 
 
 def create_table():
+    # cur.execute("""
+    # CREATE TABLE IF NOT exists Masters(
+    # id SERIAL PRIMARY KEY,
+    # name VARCHAR (60) not null,
+    # data VARCHAR (60) not null,
+    # time VARCHAR (60) not null,
+    # name_person VARCHAR (100) DEFAULT 0,
+    # person_number VARCHAR (60) DEFAULT 0,
+    # brief_description VARCHAR (1000) DEFAULT 0
+    # );
+    # """)
+    # conn.commit()
+
     cur.execute("""
     CREATE TABLE IF NOT exists Masters(
     id SERIAL PRIMARY KEY,
-    name VARCHAR (60) not null,
+    name_master VARCHAR (60) not null,
     data VARCHAR (60) not null,
-    time VARCHAR (60) not null,
-    name_person VARCHAR (100) DEFAULT 0,
-    person_number VARCHAR (60) DEFAULT 0,
+    get_data VARCHAR (60) not null,
+    name_person VARCHAR (200), 
+    person_number VARCHAR (60), 
     brief_description VARCHAR (1000) DEFAULT 0
     );
     """)
     conn.commit()
-
-
-# create_table()
+    
+create_table()
 
 
 def select_Name(name, data, name_person):

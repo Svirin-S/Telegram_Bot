@@ -18,6 +18,7 @@ select_master_data = ''
 get_admin_question = ''
 get_admin_user = ''
 get_admin_number = ''
+get_data_message = ''
 
 # TOKEN = '6225249184:AAEwLLi6VgiPCRCEZLWTwQN_vK66lrrO-eE' #Тест бот
 TOKEN = '6074203197:AAGh4YuAoXnH5iqTSLzGJHV9quOuvOFPQUc'
@@ -197,8 +198,9 @@ def bot_message(message):
             board8 = types.KeyboardButton('Кеша')
             board9 = types.KeyboardButton('Килди')
             board10 = types.KeyboardButton('Роман')
+            board11 = types.KeyboardButton('На главную')
             board44 = types.KeyboardButton('Связаться с администратором')
-            markup.add(board1, board2, board3, board4, board5, board6, board7, board8, board9, board10, board44)
+            markup.add(board1, board2, board3, board4, board5, board6, board7, board8, board9, board10, board44, board11)
             bot.send_message(message.chat.id, 'Выбери мастера', reply_markup=markup)
             bot.register_next_step_handler(message, name_master)
 
@@ -479,64 +481,78 @@ def bot_message(message):
             bot.send_message(message.chat.id, 'Вы ввели не верную команду', reply_markup=markup)
 
 
+# def name_master(message):
+#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+#     global master
+#     master = message.text
+#     board1 = types.KeyboardButton('На главную')
+#     markup.add(board1)
+#     bot.send_message(message.chat.id, 'На какой день записать тебя? (пример 01.01.01)', reply_markup=markup)
+#     bot.register_next_step_handler(message, get_data1)
+
+# def get_data1(message):
+#     if message.text == 'На главную':
+#         bot.register_next_step_handler(message, start)
+#     else:    
+#         global master
+#         global data1
+#         data1 = message.text
+#         result = select_Name(master, data1, '0')
+#         if result == []:
+#             bot.send_message(message.chat.id, f'На выбранную дату нет свободного времени')
+#             bot.send_message(message.chat.id, f'Посмотрите ближайшие свободные дыты')
+#             a = select_Name1(master, '0', data1)
+#             for b in a:
+#                 bot.send_message(message.chat.id, b)
+
+#             bot.register_next_step_handler(message, get_data2)
+#             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+#             board1 = types.KeyboardButton('На главную')
+#             markup.add(board1)
+#             bot.send_message(message.chat.id, 'Выбирите дату из списка)', reply_markup=markup)
+#         else:
+#             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+#             for i, v in enumerate(result):
+#                 i = types.KeyboardButton(v)
+#                 markup.add(i)
+#             bot.send_message(message.chat.id, "Предпочтительное время?", reply_markup=markup)
+#             bot.register_next_step_handler(message, get_updata1)
+
+
+# def get_data2(message):
+#     global master
+#     global data1
+#     data1 = message.text
+#     result = select_Name(master, data1, '0')
+#     if result == []:
+#         bot.send_message(message.chat.id, f'Вы снова ввели неверную дату')
+#     else:
+#         bot.send_message(message.chat.id, f'Предпочтительное время?')
+#         for i in result:
+            
+#             bot.send_message(message.chat.id, f'{i}')
+#         bot.register_next_step_handler(message, get_updata1)
+
+
+# def get_updata1(message):
+#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+#     global time1
+#     time1 = message.text
+#     board1 = types.KeyboardButton('На главную')
+#     markup.add(board1)
+#     bot.send_message(message.chat.id, 'Как тебя зовут?', reply_markup=markup)
+#     bot.register_next_step_handler(message, get_name_person)
+
 def name_master(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     global master
     master = message.text
-    bot.send_message(message.chat.id, 'На какой день записать тебя? (пример 01.01.01)')
-    bot.register_next_step_handler(message, get_data1)
-
-
-def get_data1(message):
-    global master
-    global data1
-    data1 = message.text
-    result = select_Name(master, data1, '0')
-    if result == []:
-        bot.send_message(message.chat.id, f'На выбранную дату нет свободного времени')
-        bot.send_message(message.chat.id, f'Посмотрите ближайшие свободные дыты')
-        a = select_Name1(master, '0', data1)
-        for b in a:
-            bot.send_message(message.chat.id, b)
-
-        bot.register_next_step_handler(message, get_data2)
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        board1 = types.KeyboardButton('На главную')
-        markup.add(board1)
-        bot.send_message(message.chat.id, 'Выбирите дату из списка)', reply_markup=markup)
-    else:
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        for i, v in enumerate(result):
-            i = types.KeyboardButton(v)
-            markup.add(i)
-        bot.send_message(message.chat.id, "Предпочтительное время?", reply_markup=markup)
-        bot.register_next_step_handler(message, get_updata1)
-
-
-def get_data2(message):
-    global master
-    global data1
-    data1 = message.text
-    result = select_Name(master, data1, '0')
-    if result == []:
-        bot.send_message(message.chat.id, f'Вы снова ввели неверную дату')
-    else:
-        bot.send_message(message.chat.id, f'Предпочтительное время?')
-        for i in result:
-            
-            bot.send_message(message.chat.id, f'{i}')
-        bot.register_next_step_handler(message, get_updata1)
-
-
-def get_updata1(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-    global time1
-    time1 = message.text
     board1 = types.KeyboardButton('На главную')
     markup.add(board1)
     bot.send_message(message.chat.id, 'Как тебя зовут?', reply_markup=markup)
     bot.register_next_step_handler(message, get_name_person)
-
-
+ 
+ 
 def get_name_person(message):
     if message.text == 'На главную':
         bot.register_next_step_handler(message, start)
@@ -559,26 +575,49 @@ def get_number(message):
         person_number = message.text
         board1 = types.KeyboardButton('На главную')
         markup.add(board1)
-        bot.send_message(message.chat.id, 'Опиши свою идеи в двух словах. Если знаешь примерные размеры, то тоже укажи их, мы будем рады', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Опиши свои идеи в двух словах. Если знаешь примерные размеры, то тоже укажи их, мы будем рады', reply_markup=markup)
         bot.register_next_step_handler(message, get_brief_description)
 
 
 def get_brief_description(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2) 
-    global name_person1
-    global data1
-    global time1
-    global master
-    global person_number
     global brief_description
     brief_description = message.text
-    update_person(master, data1, time1, name_person1, person_number, brief_description)
+    board1 = types.KeyboardButton('На главную')
+    markup.add(board1)
+    bot.send_message(message.chat.id, 'На какую дату, примерно, хотел бы записаться?')
+    bot.register_next_step_handler(message, get_data_)
+
+
+def get_data_(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2) 
+    global get_data_message
+    global name_person1
+    global person_number
+    global brief_description
+    get_data_message = message.text
     board1 = types.KeyboardButton('На главную')
     markup.add(board1)
     bot.send_message(
         message.chat.id, f'Ну всё! Ты большой молодец, в ближайшее время с тобой свяжется живой человек и уточнит у тебя пару вопрос', reply_markup=markup
     )
-    bot.send_message(209289541, f'Запись, клиент {name_person1} дата {data1} время {time1} номер {person_number}\nописание тату - {brief_description}')
+    bot.send_message(209289541, f'Запись, клиент {name_person1} желаемая тата {get_data_message} номер {person_number}\nописание тату - {brief_description}')    
+# def get_brief_description(message):
+#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2) 
+#     global name_person1
+#     global data1
+#     global time1
+#     global master
+#     global person_number
+#     global brief_description
+#     brief_description = message.text
+#     update_person(master, data1, time1, name_person1, person_number, brief_description)
+#     board1 = types.KeyboardButton('На главную')
+#     markup.add(board1)
+#     bot.send_message(
+#         message.chat.id, f'Ну всё! Ты большой молодец, в ближайшее время с тобой свяжется живой человек и уточнит у тебя пару вопрос', reply_markup=markup
+#     )
+#     bot.send_message(209289541, f'Запись, клиент {name_person1} дата {data1} время {time1} номер {person_number}\nописание тату - {brief_description}')
 
 
 def create_master1(message):
