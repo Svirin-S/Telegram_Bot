@@ -91,15 +91,12 @@ def bot_message(message):
             bot.send_message(message.chat.id, f'Привет,{user_name}!\nЯ бот-помощник тату-студии "Hokage Tattoo". Хочешь записаться на сеанс, жми "Клиентам". Если ты мастер и хочешь у нас поработать, то жми "Мастерам"', reply_markup=markup)
         elif message.text == 'Студия':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-            list_foto = ['Фото студии/IMG_6194.JPG', 'Фото студии/IMG_6295.JPG', 'Фото студии/IMG_6194.JPG']
-            bot.send_message(message.chat.id, 'Посмотрим фоточки')
-            for foto in list_foto:
-                p = open(foto, "rb")
-                bot.send_photo(message.chat.id, p)
+            p = open('Рилз_наконец_тоблядь_ура!!11!.mp4', "rb")
+            bot.send_video(message.chat.id, p)
             board4 = types.KeyboardButton('Связаться с администратором')    
             board1 = types.KeyboardButton('На главную')
             markup.add(board1, board4)
-            bot.send_message(message.chat.id, 'Вернуться назад', reply_markup=markup)
+            bot.send_message(message.chat.id, 'Свяжемся с администратором?', reply_markup=markup)
 
         elif message.text == 'Аренда':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
@@ -599,7 +596,7 @@ def get_data_(message):
     board1 = types.KeyboardButton('На главную')
     markup.add(board1)
     bot.send_message(
-        message.chat.id, f'Ну всё! Ты большой молодец, в ближайшее время с тобой свяжется живой человек и уточнит у тебя пару вопрос', reply_markup=markup
+        message.chat.id, f'Ну всё! Ты большой молодец, в ближайшее время с тобой свяжется живой человек и уточнит у тебя пару вопросов', reply_markup=markup
     )
     bot.send_message(209289541, f'Запись, клиент {name_person1} желаемая тата {get_data_message} номер {person_number}\nописание тату - {brief_description}')    
 # def get_brief_description(message):
